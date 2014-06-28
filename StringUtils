@@ -1,0 +1,363 @@
+#include <iostream.h>
+
+
+class StringUtils
+{
+  public:
+
+       char* reverseString(char *input);
+
+       char* reverse(char *input);
+
+       char* removeDuplicates(char *input);
+
+       char* checkAnagrams(char *string1, char *string2);
+
+       char* checkUnique(char *input);
+
+       char* swap(char* str, int start, int end);
+
+       char* checkUniqueUsingQuickSort(char* input, int start, int end);
+
+     
+};
+
+/** Check for unique character using QuickSort O(n log n)*/
+
+char *StringUtils::checkUniqueUsingQuickSort(char *input, int start, int end)
+{
+ 
+	//int len = strlen(input);
+
+    if((end - start) < 1)
+           {
+           	return "No unique";
+           }
+ else
+ {
+        int pivot = start;
+        int i = start + 1;
+        int j = end;
+ 
+        while(i < j)
+        {
+            while(input[i] < input[pivot] && i < end) i++;
+            while(input[j] > input[pivot] && j > start) j--;
+ 
+            if(i < j)
+                swap(input, i, j);
+        }
+       char* swapString = swap(input, pivot, j);
+ 
+       swapString = checkUniqueUsingQuickSort(swapString, start, j - 1);
+       
+       swapString = checkUniqueUsingQuickSort(swapString, j + 1, end);
+
+    return swapString;
+}
+}
+
+
+/** Swap characters in String */
+
+char *StringUtils::swap(char* str, int start, int end)
+{
+	char temp = str[start];
+        str[start] = str[end];
+        str[end] = temp;
+
+        return str;
+}
+
+
+/** Check for unique character O(n^2)*/
+
+char *StringUtils::checkUnique(char *input)
+{
+ 
+	int len = strlen(input);
+
+    // Check for duplicate character
+	for (int x = 0; x < len ; x++)
+    {
+        for (int y = x + 1; y < len; y++)
+        {
+            if (input[x] == input[y]) return "Not unique";
+        }
+    }
+    return "Unique";
+}
+
+/** Check for Anagrama */
+
+char *StringUtils::checkAnagrams(char *string1, char *string2)
+{
+   int length1 = strlen(string1);
+
+   int length2 = strlen(string2);
+
+
+   // Check if lengths are different 
+   if(length1  !=  length2)
+   {
+   	    return "not anagrams";
+   }
+   else
+   {
+
+     for(int forward = 0, backward = length2-1; forward < length1, backward >= 0; forward++, backward-- )
+     {
+     	// if forward character != backward then they are not anagrams
+         if(string1[forward] != string2[backward])
+         {
+
+            return "not anagrams";
+         }
+         else
+         {
+         	continue;
+         }
+     }
+          return "anagrams";
+   }
+
+}
+
+/** Reverse */
+
+char *StringUtils::reverse(char *input)
+{
+	//char *begin = input;
+
+	char *end = input;
+
+	char temp;
+
+	if(input)
+	{
+		while(*end != '\0' )
+		{
+			++end;
+		}
+		--end;
+
+		while(input < end)
+		{
+			temp = *input;
+
+			*input = *end;
+
+			*end = temp;
+
+			input++ ;
+
+			end--;
+		}
+	}
+	//Only prints till space
+
+	return input;
+}
+
+/** Reverse String */
+
+char *StringUtils::reverseString(char *input)
+{
+  // Get length of the input string
+  int len = strlen(input);
+
+  int i, j;
+  char tmp;
+ 
+ // swaping logic for reversing 
+  for(i = 0, j = len-1; i <j; i++, j--)
+  {
+  	//store char at i in temp
+    tmp = input[i];
+
+    //store char at j in char at i
+    input[i] = input[j];
+
+    //now store tmp char at char at j
+    input[j] = tmp;
+    
+  }
+
+  return input;
+}
+
+/** Remove Duplicates */
+
+char *StringUtils::removeDuplicates(char *input)
+{
+	//char *temp = "";
+
+    int len = strlen(input);
+
+// Check for duplicates and assign 0
+	for (int i=0;i<len;i++)		
+	{
+		if(input[i] == 0)
+			continue;
+		for(int j=i+1;j<len;j++)
+		{
+			if (input[j]==input[i])
+			{
+				input[j]=0;
+			}
+		}
+	}
+
+	int pointer = 0;	
+
+	// 		
+	for(int i=0;i<len;i++)	
+	{
+		if(input[i]!=0)
+		{
+			input[pointer]=input[i];
+			pointer++;
+		}
+	}
+	input[pointer]='\0';	
+
+	return input;
+}
+
+/** Main function */
+
+int main()//int argc,char *argv[])
+{
+	// Check for number of arguments
+	// if(argc == 1)
+	//   {
+	//   	//No arguments
+	//      cout<<"No arguments."<<endl;
+	//      exit(1);
+	//   }
+
+	// else
+	// {
+        int option =0;
+
+	    char *input;
+
+	    char *input2;
+
+        // Create instance of StringUtils 
+		StringUtils *objStringUtils = new StringUtils();
+
+
+		cout<<"Choose the option for performing calculation on string"<<"\n\n"<<"1: Reverse String"<<"\n\n"<<"2: Remove Duplicates"<<"\n\n"<<"3: Check Anagrams "<<"\n\n"<<"4: Determine unique characters without additional DS\n\n";//5:Determine unique characters using QuickSort\n\n";
+
+        cin>>option;
+
+        switch(option)
+        {
+        	case 1:
+					{
+			        	cout<<"Enter string: ";
+
+			        	cin>>input;
+			        	
+				        // perform reverse of string
+						char* src = objStringUtils->reverseString(input);//objStringUtils->reverse(argv[1]);//reverseCharString("HelloWorld"); //f->reverse("HelloWorld");
+
+						cout<<src;
+
+						//goto start;
+					}
+			    break;
+
+			case 2:
+					{
+						cout<<"Enter string: ";
+
+			        	cin>>input;
+
+ 		                // perform removal of duplicates in a string
+						char* src1 = objStringUtils->removeDuplicates(input);//objStringUtils->reverse(argv[1]);//reverseCharString("HelloWorld"); //f->reverse("HelloWorld");
+
+						cout<<"\n"<<src1<<"\n";
+
+						//goto start;
+					}
+
+				break;
+
+			case 3:
+                  {
+                  	cout<<"Enter strings: ";
+
+			        cin>>input>>input2;
+
+                    int l = strlen(input);
+
+					if( l > 0)
+					{
+				       // cout<<"Enter string2: ";
+
+				      //  cin>>input2;
+
+				        //perform anagrams test
+				        char *isAnagram = objStringUtils->checkAnagrams(input, input2);
+
+				        cout<<"Two strings are "<<isAnagram;
+					}
+					else
+					{
+						 cout<<"Two strings are not anagrams ";
+
+					}
+                 }
+			    break;
+
+			case 4:
+                  {
+                  	cout<<"Enter string: ";
+
+			        cin>>input;
+                   
+			        //perform unique character test
+			        char *isUnique = objStringUtils->checkUnique(input);
+
+			        cout<<isUnique;
+					
+                 }
+
+			    break;
+
+		    // case 5:
+      //         {
+      //         	cout<<"Enter string: ";
+
+		    //     cin>>input;
+               
+      //          int len = strlen(input);
+
+      //          cout<<len;
+
+		    //     //perform unique character test
+		    //     char *isUnique = objStringUtils->checkUniqueUsingQuickSort(input,0,len);
+
+		    //     cout<<isUnique;
+				
+      //        }
+
+		    // break;
+             default: 
+             		{
+             			cout<<"Choose correct options:"<<"\n";
+
+             			//goto start;
+             		}
+             	break;
+        }
+		//if(argv[1])
+
+		
+         //std::cout << argv[1] << std::endl;
+		return(0);
+    //}
+	
+}
