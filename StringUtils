@@ -394,15 +394,15 @@ int main()//int argc,char *argv[])
 
 		      case 6:
                {
-               	  cout<<"Enter string: ";
+               	 // cout<<"Enter string: ";
 
-		          cin>>input;
+		 //         cin>>input;
                
       
 		               //perform unique character test
-		         char *newFillString = objStringUtils->replaceSpace(input);
+		 //        char *newFillString = objStringUtils->replaceSpace(input);
 
-		         cout<<newFillString;
+		 //        cout<<newFillString;
 				
               }
 
