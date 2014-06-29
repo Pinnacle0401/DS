@@ -19,8 +19,49 @@ class StringUtils
 
        char* checkUniqueUsingQuickSort(char* input, int start, int end);
 
+       char* replaceSpace(char* input);
+
      
 };
+
+/** Replace spaces by '%20' */
+
+char *StringUtils::replaceSpace(char* input)
+{
+	int length = strlen(input);
+
+    char *newString = new char[3*length];
+
+    int newCount = 0;
+
+    int counter = 0;
+
+    for(; counter<length; counter++)
+    {
+		if(input[counter] == ' ')
+		{
+			
+           newString[newCount] = '%';
+
+           newString[newCount++] = '2';
+
+           newString[newCount++] = '0';
+
+          // newCount = newCount + 3;
+
+		}
+		else
+		{
+			//cout<<"Hello "<<input[counter];
+			newString[newCount] = input[counter];
+		}
+    }
+//cout<<newString;
+//newString[newCount] = '\0';
+
+return newString;
+
+}
 
 /** Check for unique character using QuickSort O(n log n)*/
 
@@ -248,7 +289,7 @@ int main()//int argc,char *argv[])
 		StringUtils *objStringUtils = new StringUtils();
 
 
-		cout<<"Choose the option for performing calculation on string"<<"\n\n"<<"1: Reverse String"<<"\n\n"<<"2: Remove Duplicates"<<"\n\n"<<"3: Check Anagrams "<<"\n\n"<<"4: Determine unique characters without additional DS\n\n";//5:Determine unique characters using QuickSort\n\n";
+		cout<<"Choose the option for performing calculation on string"<<"\n\n"<<"1: Reverse String"<<"\n\n"<<"2: Remove Duplicates"<<"\n\n"<<"3: Check Anagrams "<<"\n\n"<<"4: Determine unique characters without additional DS\n\n5:Replace Spaces by '%20'\n\n6:CheckRotation\n\n";//5:Determine unique characters using QuickSort\n\n";
 
         cin>>option;
 
@@ -327,11 +368,11 @@ int main()//int argc,char *argv[])
 
 			    break;
 
-		    // case 5:
-      //         {
-      //         	cout<<"Enter string: ";
+		     case 5:
+               {
+               	  cout<<"Enter string: ";
 
-		    //     cin>>input;
+		          cin>>input;
                
       //          int len = strlen(input);
 
@@ -341,13 +382,34 @@ int main()//int argc,char *argv[])
 		    //     char *isUnique = objStringUtils->checkUniqueUsingQuickSort(input,0,len);
 
 		    //     cout<<isUnique;
-				
-      //        }
 
-		    // break;
+		               //perform replacement of spaces with %20
+		         char *newFillString = objStringUtils->replaceSpace(input);
+
+		         cout<<newFillString;
+				
+              }
+
+		     break;
+
+		      case 6:
+               {
+               	  cout<<"Enter string: ";
+
+		          cin>>input;
+               
+      
+		               //perform unique character test
+		         char *newFillString = objStringUtils->replaceSpace(input);
+
+		         cout<<newFillString;
+				
+              }
+
+		     break;
              default: 
              		{
-             			cout<<"Choose correct options:"<<"\n";
+             			cout<<"Choose correct options."<<"\n";
 
              			//goto start;
              		}
